@@ -2,6 +2,7 @@
   import Phaser from "phaser";
   import Gameplay from "./scenes/Gameplay";
   import { onMount } from "svelte";
+  import Join from "./ui/join.svelte";
   let container: HTMLDivElement;
   let width = 0;
   let height = 0;
@@ -34,6 +35,7 @@
   });
 </script>
 
+<Join/>
 <div
   bind:this={container}
   style="width: {width}px; height: {height}px; overflow: hidden"
