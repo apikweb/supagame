@@ -3,17 +3,22 @@
   import Gameplay from "./scenes/Gameplay";
   import { onMount } from "svelte";
   let container: HTMLDivElement;
+  let width = 0;
+  let height = 0;
 
-  onMount(() => {
+  const createGame = () => {
     container.innerHTML = "";
+    width = window.innerWidth;
+    height = window.innerHeight;
 
     const config = {
       type: Phaser.AUTO,
-      width: 1280,
-      height: 720,
+      width: width,
+      height: height,
       physics: {
         default: "arcade",
         arcade: {
+          debug: true,
           gravity: { y: 200 },
         },
       },
@@ -22,7 +27,14 @@
     };
 
     const game = new Phaser.Game(config);
+  };
+
+  onMount(() => {
+    createGame();
   });
 </script>
 
-<div bind:this={container} />
+<div
+  bind:this={container}
+  style="width: {width}px; height: {height}px; overflow: hidden"
+/>
