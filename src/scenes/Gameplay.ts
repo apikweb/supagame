@@ -55,15 +55,19 @@ export default class Gameplay extends Phaser.Scene {
 
   update() {
     if (this.player) {
-      const pos = new Phaser.Math.Vector2(this.player.x, this.player.y);
-      const mouse = new Phaser.Math.Vector2(
-        this.input.mousePointer.worldX,
-        this.input.mousePointer.worldY,
+      const center = new Phaser.Math.Vector2(
+        this.cam?.centerX,
+        this.cam?.centerY,
       );
+      const mouse = new Phaser.Math.Vector2(this.input.x, this.input.y);
       // Calculate the angle between the two vectors in radians
-      const angle = Phaser.Math.Angle.Between(pos.x, pos.y, mouse.x, mouse.y);
-      // Convert the angle to a direction vector
-      const dir = new Phaser.Math.Vector2(Math.cos(angle), Math.sin(angle));
+      const angle = Phaser.Math.Angle.Between(
+        center.x,
+        center.y,
+        mouse.x,
+        mouse.y,
+      );
+      const dir = center.subtract(mouse).negate().normalize();
 
       if (this.text) {
         this.text.text = `x: ${dir.x.toFixed(2)}, y: ${dir.y.toFixed(2)}`;
@@ -72,8 +76,7 @@ export default class Gameplay extends Phaser.Scene {
       const speed = 200;
 
       this.player.setVelocity(dir.x * speed, dir.y * speed);
-      this.player.setRotation(angle + Phaser.Math.PI2 / 4);
-      // this.text?.setPosition(this.player.x, this.player.y);
+      this.player.setRotation(angle + Math.PI / 2);
     }
   }
 }
