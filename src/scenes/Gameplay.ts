@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { supabaseClient } from "../lib/supabase";
 
 const world = {
   width: 2000,
@@ -51,6 +52,31 @@ export default class Gameplay extends Phaser.Scene {
     this.cam.startFollow(this.player);
 
     this.text = this.add.text(10, 10, `x: 0, y: 0`);
+
+    // TODO:
+    // - masih testing buat rapih
+
+    // Join a room/topic. Can be anything except for 'realtime'.
+    const channel = supabaseClient.channel("gameplay");
+    // Simple function to log any messages we receive
+    function messageReceived(payload: any) {
+      console.log(payload);
+    }
+    // Subscribe to the Channel
+    channel
+      .on("broadcast", { event: "test" }, (payload) => messageReceived(payload))
+      .subscribe((status) => {
+        // Wait for successful connection
+        if (status !== "SUBSCRIBED") {
+          return null;
+        }
+        // Send a message once the client is subscribed
+        channel.send({
+          type: "broadcast",
+          event: "test",
+          payload: { message: "hello, world" },
+        });
+      });
   }
 
   update() {
