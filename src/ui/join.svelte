@@ -1,8 +1,11 @@
 <script lang="ts">
+  import { supabaseClient } from "../lib/supabase";
 
 </script>
 
-<div id="ui-join">hello supagame</div>
+<div id="ui-join">hello supagame
+
+</div>
 
 <!-- Basic styling -->
 <style>

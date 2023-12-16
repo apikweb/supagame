@@ -29,7 +29,7 @@ export default class Gameplay extends Phaser.Scene {
       world.width,
       world.height,
       0x3498eb,
-      0.7,
+      0.7
     );
     rect.setOrigin(0, 0);
     this.physics.world.setBounds(0, 0, world.width, world.height);
@@ -42,7 +42,7 @@ export default class Gameplay extends Phaser.Scene {
       this.player.setCircle(
         50,
         this.player.body.halfWidth - 50,
-        this.player.body.halfHeight - 50,
+        this.player.body.halfHeight - 50
       );
     }
     this.player.setScale(0.7);
@@ -83,7 +83,7 @@ export default class Gameplay extends Phaser.Scene {
     if (this.player) {
       const center = new Phaser.Math.Vector2(
         this.cam?.centerX,
-        this.cam?.centerY,
+        this.cam?.centerY
       );
       const mouse = new Phaser.Math.Vector2(this.input.x, this.input.y);
       // Calculate the angle between the two vectors in radians
@@ -91,7 +91,7 @@ export default class Gameplay extends Phaser.Scene {
         center.x,
         center.y,
         mouse.x,
-        mouse.y,
+        mouse.y
       );
       const dir = center.subtract(mouse).negate().normalize();
 
